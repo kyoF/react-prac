@@ -13,9 +13,10 @@
   </head>
   <body>
     <button onclick="test()">テストボタン</button><br />
-    <button onclick="test()">ボタン追加</button><br />
-    <button onclick="test_scope_of_this()">マウンテン配列を結合ボタン</button
-    ><br />
+    <button onclick="aaa()">aaa</button><br />
+    <button onclick="test_var_and_let()">子要素を追加</button><br />
+    <button onclick="test_scope_range_of_this()">マウンテン配列を結合ボタン</button><br />
+    <button onclick="test_destructuring()">デストラクチャリングされた変数を出力</button><br />
     <div id="container">スペース</div>
     <script type="text/javascript">
       function test() {
@@ -37,7 +38,7 @@
         }
       }
 
-      function test_scope_of_this() {
+      function test_scope_range_of_this() {
         const tahoe = {
           mountains: ["Freel", "Rose", "Tallac", "Rubicon", "Silver"],
           print: function (delay = 1000) {
@@ -51,6 +52,38 @@
         };
         console.log(tahoe.print());
       }
-    </script>
+
+      function test_destructuring() {
+        const sandwich = {
+          bread: "dutch crunch",
+          meat: "tuna",
+          cheese: "swiss",
+          toppings: ["lettuce", "tomato", "mustard"]
+        };
+        const { bread, meat } = sandwich;
+        console.log(bread, meat);
+
+        const test = {
+          a: "a",
+          b: "b",
+          c: "c",
+          xyz: ["x", "y", "z"]
+        };
+        let { a, b } = test;
+        a = "aa";
+        b = "bb";
+        console.log(a, b);
+        console.log(test.a, test.b);
+
+      }
+      function aaa() {
+        const lordify = regularPerson => `${regularPerson.firstname} of Canterbury`;
+        const regularPerson = {
+          firstname: "Bill",
+          lastname: "Wilson"
+        };
+        console.log(lordify());
+      }
+      </script>
   </body>
 </html>
