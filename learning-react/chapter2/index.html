@@ -23,6 +23,7 @@
     <button onclick="test_destructuring_of_list()">
       デストラクチャリングされた配列を出力</button
     ><br />
+    <button onclick="test_object_literal()">オブジェクトリテラル</button><br />
     <div id="container">スペース</div>
     <script type="text/javascript">
       function test() {
@@ -99,6 +100,17 @@
         const [firstAnimal] = ["Horse", "Mouse", "Cat"]; // Horse
         const [, , lastAnimal] = ["Horse", "Mouse", "Cat"]; // Cat
         console.log(lastAnimal);
+      }
+
+      function test_object_literal() {
+        const name = "Tallac";
+        const elevation = 9738;
+        const funHike = { name, elevation, print };
+        const print = () => {
+          console.log(`Mt. ${this.name} is ${this.elevation} feet tall`);
+        };
+        console.log(funHike);
+        funHike.print();
       }
     </script>
   </body>
