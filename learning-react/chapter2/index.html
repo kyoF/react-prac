@@ -112,6 +112,33 @@
         console.log(funHike);
         funHike.print();
       }
+
+      function test_ES5_and_ES2015() {
+        var skier5 = {
+          name: name,
+          sound: sound,
+          powderYell: function () {
+            var yell = this.sound.toUpperCase();
+            console.log(`${yell} ${yell} ${yell}`);
+          },
+          speed: function (mph) {
+            this.speed = mph;
+            console.log("speed:", mph);
+          },
+        };
+        const skier2015 = {
+          name,
+          sound,
+          powderYell() {
+            let yell = this.sound.toUpperCase();
+            console.log(`${yell} ${yell} ${yell}`);
+          },
+          speed(mph) {
+            this.speed = mph;
+            console.log("speed:", mph);
+          },
+        };
+      }
     </script>
   </body>
 </html>
