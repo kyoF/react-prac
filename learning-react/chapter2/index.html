@@ -24,6 +24,7 @@
       デストラクチャリングされた配列を出力</button
     ><br />
     <button onclick="test_object_literal()">オブジェクトリテラル</button><br />
+    <button onclick="test_ES5_and_ES2015()">ES5とES2015の比較</button><br />
     <div id="container">スペース</div>
     <script type="text/javascript">
       function test() {
@@ -105,15 +106,17 @@
       function test_object_literal() {
         const name = "Tallac";
         const elevation = 9738;
-        const funHike = { name, elevation, print };
         const print = () => {
-          console.log(`Mt. ${this.name} is ${this.elevation} feet tall`);
+          console.log(`Mt. ${name} is ${elevation} feet tall`);
         };
+        const funHike = { name, elevation, print };
         console.log(funHike);
         funHike.print();
       }
 
       function test_ES5_and_ES2015() {
+        const name = "kyosuke";
+        const sound = "good";
         var skier5 = {
           name: name,
           sound: sound,
@@ -138,6 +141,8 @@
             console.log("speed:", mph);
           },
         };
+        console.log(skier5);
+        console.log(skier2015);
       }
     </script>
   </body>
