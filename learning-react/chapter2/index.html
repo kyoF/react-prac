@@ -25,7 +25,8 @@
     ><br />
     <button onclick="test_object_literal()">オブジェクトリテラル</button><br />
     <button onclick="test_ES5_and_ES2015()">ES5とES2015の比較</button><br />
-    <button onclick="test_spread_syntax()">スプレッド構文の挙動確認</button><br />
+    <button onclick="test_spread_syntax()">スプレッド構文の挙動確認</button
+    ><br />
     <div id="container">スペース</div>
     <script type="text/javascript">
       function test() {
@@ -155,7 +156,7 @@
         const canyons = ["Ward", "Blackwood"];
         const tahoe = [...peaks, ...canyons];
         // console.log(tahoe);
-        
+
         // // 破壊的メソッド
         // const [last] = peaks.reverse();
         // console.log(last);
@@ -165,7 +166,7 @@
         const [last] = [...peaks].reverse();
         // console.log(last);
         // console.log(peaks)
-        
+
         const lakes = ["Donner", "Marlette", "Fallen Leaf", "Cascade"];
         const [first, ...others] = lakes;
         // console.log(others);
@@ -182,15 +183,27 @@
 
         const morning = {
           breakfast: "oatmeal",
-          lunch: "peanut butter and jelly"
+          lunch: "peanut butter and jelly",
         };
         const dinner = "mac and cheese";
         const backpackingMeals = {
           ...morning,
-          dinner
+          dinner,
         };
         console.log(backpackingMeals);
       }
+
+      function test_asynchronous_processing() {
+        console.log(fetch("https://api.randomuser.me/?nat=US&results=1"));
+      }
+      fetch("https://api.randomuser.me/?nat=US&results=1").then((res) =>
+        console.log(res.json())
+      );
+      fetch("https://api.randomuser.me/?nat=US&results=1")
+        .then((res) => res.json())
+        .then((json) => results)
+        .then(console.log)
+        .catch(console.error);
     </script>
   </body>
 </html>
