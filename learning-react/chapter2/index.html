@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>test</title>
+    <title>chapter2</title>
     <style>
       div {
         margin: 10px;
@@ -289,8 +289,8 @@
 
       function test_ecmascript_module() {
         // ↓↓↓ エクスポートする側のコード
-        export const print = message => log(message, date());
-        export const log = (message, timestamp) => 
+        export const print = (message) => log(message, date());
+        export const log = (message, timestamp) =>
           console.log(`${timestamp.toString()}: ${message}`);
         const date = () => new Date();
         export default new Expedition("Mt. Freel", 2, ["water", "snack"]);
@@ -309,9 +309,9 @@
         // エクスポートされたすべての値を単一のオブジェクトとして受け取ることも可能
         import * as fns from "./text-helpers";
         // ↑↑↑ インポートする側のコード
-        
+
         // ↓↓↓ CommonJSモジュールとしてエクスポート
-        const print = message => log(message, new Date());
+        const print = (message) => log(message, new Date());
         const log = (message, timestamp) =>
           console.log(`${timestamp.toString()}: ${message}`);
         module.exports = { print, log };
@@ -320,7 +320,6 @@
         // ↓↓↓ CommonJSモジュールとしてインポート
         const { log, print } = require("./text-helpers");
         // ↑↑↑ CommonJSモジュールとしてインポート
-
       }
     </script>
   </body>
