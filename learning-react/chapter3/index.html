@@ -5,17 +5,49 @@
     <title>chapter3</title>
     <style>
       div {
-	margin: 10px;
-	padding: 10px;\
-	border: medium solid blue;
+        margin: 10px;
+        padding: 10px;
+        border: medium solid blue;
       }
     </style>
   </head>
   <body>
-    <button onclick="test()">テストボタン</button><br />
+    <!-- <button onclick="test()">テストボタン</button><br /> -->
+    <button onclick="kansugatatoha()">関数型とは？</button><br />
     <script>
-      function test() {
-	console.log("test");
+      // function test() {
+      //   console.log("test");
+      // }
+      function kansugatatoha() {
+        const msg = [
+          "testtest",
+          msg => console.log(msg),
+          "test2",
+          msg => console.log(msg)
+        ];
+        // msg[1](msg[0]);
+        // msg[3](msg[2]);
+
+        // 関数を別の関数に引数として渡す
+        const insideFn = logger => {
+          logger("inside function test");
+        };
+        // insideFn(msg => console.log(msg));
+
+        // 戻り値を関数にする
+        const createScream = function (logger) {
+          return function (msg) {
+            logger(`${msg.toUpperCase()}!!!`);
+          };
+        };
+        // ↑のアロー関数ver
+        // const createScream = logger => msg => {
+        //   logger(`${msg.toUpperCase()}!!!`);
+        // };
+        const scream = createScream(msg => console.log(msg));
+        scream("I'm kyosuke fujiki");
+        scream("23 years old");
+        scream("I'm happy");
       }
     </script>
   </body>
