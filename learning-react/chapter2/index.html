@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>chapter3</title>
+    <title>test</title>
     <style>
       div {
         margin: 10px;
@@ -12,72 +12,315 @@
     </style>
   </head>
   <body>
-    <!-- <button onclick="test()">テストボタン</button><br /> -->
-    <button onclick="kansugatatoha()">関数型とは？</button><br />
-    <button onclick="kannsuugatapuroguramingunokihongainenn()">関数型プログラミングの基本概念</button><br />
-    <script>
-      // function test() {
-      //   console.log("test");
-      // }
-
-      // 第一章
-      function kansugatatoha() {
-        const msg = [
-          "testtest",
-          msg => console.log(msg),
-          "test2",
-          msg => console.log(msg)
-        ];
-        // msg[1](msg[0]);
-        // msg[3](msg[2]);
-
-        // 関数を別の関数に引数として渡す
-        const insideFn = logger => {
-          logger("inside function test");
-        };
-        // insideFn(msg => console.log(msg));
-
-        // 戻り値を関数にする
-        const createScream = function (logger) {
-          return function (msg) {
-            logger(`${msg.toUpperCase()}!!!`);
-          };
-        };
-        // ↑のアロー関数ver
-        // const createScream = logger => msg => {
-        //   logger(`${msg.toUpperCase()}!!!`);
-        // };
-        const scream = createScream(msg => console.log(msg));
-        scream("I'm kyosuke fujiki");
-        scream("23 years old");
-        scream("I'm happy");
+    <button onclick="test()">テストボタン</button><br />
+    <button onclick="test_var_and_let()">子要素を追加</button><br />
+    <button onclick="test_scope_range_of_this()">
+      マウンテン配列を結合ボタン</button
+    ><br />
+    <button onclick="test_destructuring()">
+      デストラクチャリングされた変数を出力</button
+    ><br />
+    <button onclick="test_destructuring_of_list()">
+      デストラクチャリングされた配列を出力</button
+    ><br />
+    <button onclick="test_object_literal()">オブジェクトリテラル</button><br />
+    <button onclick="test_ES5_and_ES2015()">ES5とES2015の比較</button><br />
+    <button onclick="test_spread_syntax()">スプレッド構文の挙動確認</button
+    ><br />
+    <div id="container">スペース</div>
+    <script type="text/javascript">
+      function test() {
+        console.log("test");
       }
 
-      // 第二章
+      function test_var_and_let() {
+        var div;
+        var container = document.getElementById("container");
+        // for (var i = 1; i <= 5; i++) {
+        // ↑全部のボタンが6で表示されてしまう
+        for (let i = 1; i <= 5; i++) {
+          // ↑1から5と表示されたボタンが出力する
+          div = document.createElement("div");
+          div.onclick = function () {
+            alert("This is box #" + i);
+          };
+          container.appendChild(div);
+        }
+      }
 
-      // 第三章
-      function kannsuugatapuroguramingunokihongainenn() {
-        let color_lawn = {
-          title: "lawn",
-          color: "#00FF00",
-          rating: 0
+      function test_scope_range_of_this() {
+        const tahoe = {
+          mountains: ["Freel", "Rose", "Tallac", "Rubicon", "Silver"],
+          print: function (delay = 1000) {
+            // setTimeout(function() {
+            // ↑thisのスコープ外のため、printを呼び出すとエラー表示される
+            setTimeout(() => {
+              // ↑thisのスコープ内となる
+              console.log(this.mountains.join(", "));
+            }, delay);
+          },
         };
-        // ↓ オブジェクトを受け取っているので、オブジェクトそのものを変更してしまっている
-        // function rateColor(color, rating) {
-        //   color.rating = rating;
-        //   return color;
-        // }
-        // 上記をイミュータブルにする（例１）
-        // function rateColor(color, rating) {
-        //   return Object.assign({}, color, { rating: rating });
-        // }
-        // 上記をイミュータブルにする（例２）
-        const rateColor = ( color, rating ) => ({
-          ...color,
-          rating
-        });
-        console.log(rateColor(color_lawn, 5).rating)
-        console.log(color_lawn.rating)
+        console.log(tahoe.print());
+      }
+
+      function test_destructuring() {
+        const sandwich = {
+          bread: "dutch crunch",
+          meat: "tuna",
+          cheese: "swiss",
+          toppings: ["lettuce", "tomato", "mustard"],
+        };
+        const { bread, meat } = sandwich;
+        console.log(bread, meat);
+
+        const test = {
+          a: "a",
+          b: "b",
+          c: "c",
+          xyz: ["x", "y", "z"],
+        };
+        let { a, b } = test;
+        a = "aa";
+        b = "bb";
+        console.log(a, b);
+        console.log(test.a, test.b);
+
+        const regularPerson = {
+          firstname: "Bill",
+          lastname: "Wilson",
+          ore: {
+            firstname: "Kyosuke",
+            lastname: "Fujiki",
+          },
+        };
+        const lordify = ({ ore: { firstname } }) => {
+          console.log(`${firstname} of Canterbury`);
+        };
+        lordify(regularPerson);
+      }
+
+      function test_destructuring_of_list() {
+        const [firstAnimal] = ["Horse", "Mouse", "Cat"]; // Horse
+        const [, , lastAnimal] = ["Horse", "Mouse", "Cat"]; // Cat
+        console.log(lastAnimal);
+      }
+
+      function test_object_literal() {
+        const name = "Tallac";
+        const elevation = 9738;
+        const print = () => {
+          console.log(`Mt. ${name} is ${elevation} feet tall`);
+        };
+        const funHike = { name, elevation, print };
+        console.log(funHike);
+        funHike.print();
+      }
+
+      function test_ES5_and_ES2015() {
+        const name = "kyosuke";
+        const sound = "good";
+        var skier5 = {
+          name: name,
+          sound: sound,
+          powderYell: function () {
+            var yell = this.sound.toUpperCase();
+            console.log(`${yell} ${yell} ${yell}`);
+          },
+          speed: function (mph) {
+            this.speed = mph;
+            console.log("speed:", mph);
+          },
+        };
+        const skier2015 = {
+          name,
+          sound,
+          powderYell() {
+            let yell = this.sound.toUpperCase();
+            console.log(`${yell} ${yell} ${yell}`);
+          },
+          speed(mph) {
+            this.speed = mph;
+            console.log("speed:", mph);
+          },
+        };
+        console.log(skier5);
+        console.log(skier2015);
+        skier5.powderYell();
+        skier5.speed(20);
+        skier2015.powderYell();
+        skier2015.speed(20);
+      }
+
+      function test_spread_syntax() {
+        const peaks = ["Tallac", "Ralston", "Rose"];
+        const canyons = ["Ward", "Blackwood"];
+        const tahoe = [...peaks, ...canyons];
+        // console.log(tahoe);
+
+        // // 破壊的メソッド
+        // const [last] = peaks.reverse();
+        // console.log(last);
+        // console.log(peaks)
+
+        // // 無問題
+        const [last] = [...peaks].reverse();
+        // console.log(last);
+        // console.log(peaks)
+
+        const lakes = ["Donner", "Marlette", "Fallen Leaf", "Cascade"];
+        const [first, ...others] = lakes;
+        // console.log(others);
+
+        function directions(...args) {
+          let [start, ...remaining] = args;
+          let [finish, ...stops] = remaining.reverse();
+          // console.log(`drive through ${args.length} towns`);
+          // console.log(`start in ${start} towns`);
+          // console.log(`the destination is ${finish}`);
+          // console.log(`stopping ${stops.length} time in between`);
+        }
+        directions("Truckee", "Tahoe City", "Sunnyside", "Homewood", "Tahoma");
+
+        const morning = {
+          breakfast: "oatmeal",
+          lunch: "peanut butter and jelly",
+        };
+        const dinner = "mac and cheese";
+        const backpackingMeals = {
+          ...morning,
+          dinner,
+        };
+        console.log(backpackingMeals);
+      }
+
+      function test_asynchronous_processing() {
+        console.log(fetch("https://api.randomuser.me/?nat=US&results=1"));
+        fetch("https://api.randomuser.me/?nat=US&results=1").then((res) =>
+          console.log(res.json())
+        );
+        fetch("https://api.randomuser.me/?nat=US&results=1")
+          .then((res) => res.json())
+          .then((json) => results)
+          .then(console.log)
+          .catch(console.error);
+
+        const getFakePerson = async () => {
+          try {
+            const res = await fetch(
+              "https://api.randomuser.me/?nat=US&results=1"
+            );
+            const { results } = await res.json();
+            console.log(results);
+          } catch (error) {
+            console.error(error);
+          }
+        };
+        getFakePerson();
+
+        // Promiseオブジェクトの作成
+        const getFakeMembers = (count) =>
+          new Promise((resolves, rejects) => {
+            const api = `https://api.randomuser.me/?nat=US&results=${count}`;
+            const request = new XMLHttpRequest();
+            request.open("GET", api);
+            request.onload = () =>
+              request.status === 200
+                ? resolves(JSON.parse(request.response).results)
+                : reject(Error(request.statusText));
+            request.onerror = (err) => rejects(err);
+            request.send();
+          });
+        // then/catchメソッドによるエラー処理
+        getFakeMembers(5)
+          .then((members) => console.log(members))
+          .catch((error) =>
+            console.error(`getFakeMembers failed: ${error.message}`)
+          );
+        // try/catchによるエラー処理
+        async function testGetFakeMembers() {
+          try {
+            const members = await getFakeMembers(5);
+            console.log(members);
+          } catch (error) {
+            console.error(`getFakeMembers faild: ${error.message}`);
+          }
+        }
+      }
+
+      function test_class() {
+        function Vacation(destination, length) {
+          this.destination = destination;
+          this.length = length;
+        }
+        Vacation.prototype.print = function () {
+          console.log(this.destination + " | " + this.length + " days");
+        };
+        var maui = new Vacation("Maui", 7);
+        maui.print();
+        // ↑↓どっちも同じ
+        class Vacation {
+          constructor(destination, length) {
+            this.destination = destination;
+            this.length = length;
+          }
+          print() {
+            console.log(`${this.destination} will take ${thislength} days.`);
+          }
+        }
+
+        // Vacatonクラスを継承したクラス
+        class Expedition extends Vacation {
+          constructor(destination, length, gear) {
+            super(destination, length);
+            this.gear = gear;
+          }
+          print() {
+            super.print();
+            console.log(`Bring your ${this.gear.join(" and your ")}`);
+          }
+        }
+        const trip = new Expedition("Mt. Whitney", 3, [
+          "sunglasses",
+          "prayer flags",
+          "camera",
+        ]);
+        trip.print();
+      }
+
+      function test_ecmascript_module() {
+        // ↓↓↓ エクスポートする側のコード
+        export const print = message => log(message, date());
+        export const log = (message, timestamp) => 
+          console.log(`${timestamp.toString()}: ${message}`);
+        const date = () => new Date();
+        export default new Expedition("Mt. Freel", 2, ["water", "snack"]);
+        // ↓↓↓ エクスポートする側のコード
+
+        // ↓↓↓ インポートする側のコード
+        import { print, log } from "./text-helpers";
+        import freel from "./mt-freel";
+        print("printing a message");
+        log("logging a message");
+        freel.print();
+        // エクスポート値とは異なる名前でインポートできる
+        import { print as p, log as l } from "./text-helpers";
+        p("printing a message");
+        l("logging a message");
+        // エクスポートされたすべての値を単一のオブジェクトとして受け取ることも可能
+        import * as fns from "./text-helpers";
+        // ↑↑↑ インポートする側のコード
+        
+        // ↓↓↓ CommonJSモジュールとしてエクスポート
+        const print = message => log(message, new Date());
+        const log = (message, timestamp) =>
+          console.log(`${timestamp.toString()}: ${message}`);
+        module.exports = { print, log };
+        // ↑↑↑ CommonJSモジュールとしてエクスポート
+
+        // ↓↓↓ CommonJSモジュールとしてインポート
+        const { log, print } = require("./text-helpers");
+        // ↑↑↑ CommonJSモジュールとしてインポート
+
       }
     </script>
   </body>
