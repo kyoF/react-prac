@@ -85,8 +85,56 @@
         // const addColor = (title, array) => array.concat({ title });
         // ↓ 上の関数をスプレッド構文を使って作成
         const addColor = (title, array) => [ ...array, { title }];
-        console.log(addColor("Glam Green", list).length);
-        console.log(list.length);
+        // console.log(addColor("Glam Green", list).length);
+        // console.log(list.length);
+
+        const test = {
+          name: "kyosuke",
+          canRead: false,
+          canWrite: false
+        };
+        function funcTest() {
+          test.canRead = true,
+          test.canWrite = true;
+          return test;
+        }
+        funcTest();
+        console.log(test);
+
+        const test = {
+          name: "kyosuke",
+          canRead: false,
+          canWrite: false
+        };
+        const funcTest = test => {
+          test.canRead = true;
+          test.canWrite = true;
+          return test;
+        }
+        console.log(funcTest(test));
+        console.log(test);
+
+        const test = {
+          name: "kyosuke",
+          canRead: false,
+          canWrite: false
+        };
+        const funcTest = test => ({
+          ...test,
+          canRead = true,
+          canWrite = true,
+        })
+        console.log(funcTest(test));
+        console.log(test);
+
+        function header(text) {
+          let h1 = document.createElement("h1");
+          h1.innerText = text;
+          document.body.appendChild(h1);
+        }
+        header("Header Header Header");
+
+        const header = props => <h1>{props.title}</h1>;
       }
     </script>
   </body>
