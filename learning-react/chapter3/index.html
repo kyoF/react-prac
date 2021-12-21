@@ -135,6 +135,66 @@
         header("Header Header Header");
 
         const header = props => <h1>{props.title}</h1>;
+
+        // データ変換
+
+        // 元の配列を壊さないようにビルトイン関数を使用
+        const schools = ["Yorktown", "Washington & Liberty", "Wakefield"];
+        // joinを使って結合
+        console.log(console.log(schools.join(", ")));
+        // フィルターを使ってwから始まる要素を取得
+        const wSchools = schools.filter(school => school[0] === "W");
+        console.log(wSchools);
+
+        // 特定の要素を削除する際はfilterを使用して削除する
+        // なぜなら非破壊的メソッドだから
+        const cutSchool = (cut, list) => list.filter(school => school !== cut);
+        console.log(cutSchool("Washington & Liberty", schools).join(", "));
+        console.log(schools.join("\n"));
+
+        // mapメソッドはコールバック関数を引数にとり、配列の要素の数だけ呼び出される
+        const highSchools = schools.map(school => `${school} High School`);
+        console.log(highSchools.join("\n"));
+        console.log(schools.join("\n"));
+        // 文字列配列をオブジェクトの配列に変換
+        const highSchoolsArray = schools.map(school => ({ name: school }));
+        console.log(highSchoolsArray);
+        // 一つの要素だけを変更
+        const dschools = [
+          { name: "Yorktown" },
+          { name: "Stratford" },
+          { name: "Washington & Liberty" },
+          { name: "Wakefield" }
+        ];
+        const editName = (oldName, name, arr) =>
+          arr.map(item => {
+            if (item.name === oldName) {
+              return {
+                ...item,
+                name
+              };
+            } else {
+              return item;
+            }
+          });
+        const updatedDschools = editName("Stratford", "HB WoodLawn", dschools);
+        console.log(updatedDschools[1]);
+        console.log(dschools[1]);
+        // 上記editNameを三項演算子で
+        const editName = (oldName, name, arr) =>
+          arr.map(item => (item.name === oldName ? { ...item, name} : item));
+        // オブジェクトから配列を得る場合
+        // Object.keys(hogehoge)は配列を返す
+        const ddschools = {
+          Yorktown: 10,
+          "Washington & Liberty": 2,
+          Wakefield: 5
+        };
+        const ddschoolArray = Object.keys(ddschools).map(key => ({
+          name: key,
+          wins: ddschools[key]
+        }));
+        console.log(ddschoolArray)
       }
     </script>
   </body>
