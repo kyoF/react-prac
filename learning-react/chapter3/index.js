@@ -53,3 +53,24 @@ const uniqueColors = list_colors.reduce(
         unique_list.indexOf(color) === -1 ? [...unique_list, color] : unique_list
 , []);
 console.log(uniqueColors);
+
+// 3.3.4 高階関数
+// 高階関数とは、他の関数を引数にとるか、戻り値として関数を返すか、それら両方を満たす関数
+// 関数を引数に撮る場合
+const invokeIf = (condition, fnTrue, fnFalse) =>
+    condition ? fnTrue() : fnFalse();
+const showWelcome = () => console.log("Welcome");
+const showUnauthorized  = () => console.log("Unauthorized");
+invokeIf(true, showWelcome, showUnauthorized);
+invokeIf(false, showWelcome, showUnauthorized);
+// 戻り値が関数の場合
+// 非同期処理を実装する際に、その場で処理を実行する代わりに関数を返すことで、すべての情報がそろった時点で処理をすることが出来る
+const userLogs = userName => message =>
+    console.log(`${userName} -> ${message}`);
+const log = userLogs("grandpa23");
+log("attempted to load 20 fake members");
+getFakeMembers(20).then(
+    members => log(`successfully loaded ${members.length} members`)
+).catch(
+    error => log("encountered an error loading members")
+);
