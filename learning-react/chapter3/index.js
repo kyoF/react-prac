@@ -74,3 +74,42 @@ getFakeMembers(20).then(
 ).catch(
     error => log("encountered an error loading members")
 );
+
+// 3.3.5 再帰
+// 関数の中から自分自身を再帰的に呼び出すテクニック
+const countdown = (value, fn) => {
+    fn(value);
+    return value > 0 ? countdown(value - 1, fn) : value;
+}
+countdown(10, value => console.log(value))
+// 非同期処理を組み合わせることで、データが取得できたかを確認してループ処理が出来る
+const countdown = (value, fn, delay = 1000) => {
+    fn(value);
+    return value > 0
+        ? setTimeout(() => countdown(value - 1, fn, delay), delay)
+        : value;
+};
+const log = vlaue => console.log(value);
+countdown(10, log);
+// 再帰は、データ構造の探索用途（サブフォルダからファイルを探索する・HTMLドキュメントからDOM要素を探索するetc）にも使われる
+const dan = {
+    type: "person",
+    data: {
+        gender: "male",
+        info: {
+            id: 22,
+            fullname: {
+                first: "Dan",
+                last: "deacon"
+            }
+        }
+    }
+};
+deepPick("type", dan);
+deepPick("data.info.fullname.first", dan)
+const deepPick = (fields, object = {}) => {
+    const [first, ...remaining] = fields.split(".");
+    return remaining.length
+        ? deepPick(remaining.join("."), object[first])
+        : object[first];
+};
