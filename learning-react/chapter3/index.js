@@ -113,3 +113,20 @@ const deepPick = (fields, object = {}) => {
         ? deepPick(remaining.join("."), object[first])
         : object[first];
 };
+
+// 3.3.6 関数の合成
+// 関数を順番に、もしくは平行に呼び出したり、いくつかの関数呼び出しを束ねたりすることで、アプリ全体を構築する過程を関数の合成と呼ぶ
+const template = "hh:mm:ss tt";
+const clockTime = template
+                    .replace("hh", "03")
+                    .replace("mm", "33")
+                    .replace("ss", "33")
+                    .replace("tt", "PM");
+console.log(clockTime);
+const both = compose(
+    civilianHours,
+    appendAMPM
+);
+both(new Date());
+const compose = (...fns) => arg =>
+    fns.reduce((coposed, f) => f(composed), arg);
