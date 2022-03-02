@@ -9,4 +9,5 @@ module.exports = {
   module: {
     rules: [{ test: /\.js$/, exclude: /nodl_modules/, loader: "babel-loader" }],
   },
+  devtool: "source-map", // トップレベルにプロパティを追加
 };
