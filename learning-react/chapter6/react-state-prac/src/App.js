@@ -1,5 +1,6 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { FaSter } from "react-icons/fa";
 
 function App() {
   return (
